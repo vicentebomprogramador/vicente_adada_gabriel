@@ -77,7 +77,7 @@ def registrar_notas():
 
 
 
-
+print("aurax")
 
 
 
