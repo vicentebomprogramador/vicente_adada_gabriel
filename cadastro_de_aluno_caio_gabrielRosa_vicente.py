@@ -18,15 +18,29 @@ matricula = 0
 alunos = []
 def cadastrar_aluno():
     global matricula
-    nomes = input("qual é o nome do aluno que voce deseja cadastrar?: ")
-    if nomes == "":
-        print("não pode campo vazio")
-        return
+    while True:
+        nomes = input("nome do aluno: ")
+        sobrenome = input("sobrenome: ")
+        if nomes == "":
+            print("não pode campo vazio")
+            continue
+        elif sobrenome == "":
+            print("não pode campo vazio")
+            continue
 
-    elif not nomes.isalpha():
-        print("nome inválido...")
-        return 
+        elif not nomes.isalpha():
+            print("nome inválido...")
+            continue
+        elif not sobrenome.isalpha():
+            print("sobrenome inválido...")
+            continue
+        
+        else:
+            break
+    alunos = [nomes, sobrenome]
     aluno = [alunos, turma]
+    
+               
     while turma == [] or alunos == []:
         print("opções:")
         print("1 - 1 ANO")
@@ -65,14 +79,23 @@ def cadastrar_aluno():
             print("turma inválida...")
             continue
         matricula += 1
-        print(f"sua matricula é: {matricula}")
+        print(f"a matrícula do aluno é: {matricula}")
         turma.append(turmas)
-        alunos.append(nomes)
-
-def registrar_notas():
-    print ("qual aluno você quer registrar uma nota")
+        alunos.append(nomes, sobrenome)
 
 
+nota = []
+def registrar_notas(alunos, nota):
+    
+    if len(alunos) == 0:
+        print("nenhum aluno cadastrado")
+        return
+    print ("qual aluno você quer registrar uma nota?")
+    
+    nome = input("Digite o nome do aluno: ").strip()
+
+    encontrados = []
+  
 
 
 
@@ -84,3 +107,6 @@ def registrar_notas():
 
 
 cadastrar_aluno()
+cadastrar_aluno()
+print(alunos)
+registrar_notas(alunos, nota)
