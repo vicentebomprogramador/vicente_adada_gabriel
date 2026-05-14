@@ -2,6 +2,7 @@ import mysql.connector
 from mysql.connector import Error
 
 def criar_conexao():
+
     try:
         conexao = mysql.connector.connect(
             host='127.0.0.1',
@@ -13,6 +14,7 @@ def criar_conexao():
     except Error as e:
         print(f"Erro ao conectar ao MySQL: {e}")
         return None
+    
 turma = []
 matricula = 0
 alunos = []
@@ -68,19 +70,47 @@ def cadastrar_aluno():
         print(f"sua matricula é: {matricula}")
         turma.append(turmas)
         alunos.append(nomes)
-
-def registrar_notas():
-    print ("qual aluno você quer registrar uma nota")
-
+        
+        
 
 
 
+def apagar_aluno():
+    while True:
+        if not alunos:
+            print("não há alunos cadastrados")
+            continue
+        print("deseja apagar um usuario?")
+        print("sim/yes/s \nnão/no/n")
+        escolha = input().lower
 
+        if not escolha().strip():
+            print("campo vazio, tente novamente") 
+            continue
+        if escolha() in ("sim" "yes" "s"):
+            print("qual a matricula do aluno que você deseja apagar?")
+            matricula_aluno = input()
+            if matricula_aluno.isdigit() == False:
+                print("ERRO: matricula te q ser um numero")
+                continue
 
-print("aurax")
+            else:
+                alunos.pop(matricula_aluno - 1)
+                print("Aluno apagado com sucesso!")
+            
+
+        
+            
+        elif escolha() in ("não" "no" "n"):
+            break
+        else:
+            print("///////////////\nescolha uma das opções\n///////////////")
+            continue
+
 
 
 
 
 
 cadastrar_aluno()
+apagar_aluno()
