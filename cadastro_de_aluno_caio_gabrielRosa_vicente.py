@@ -13,7 +13,7 @@ def criar_conexao():
     except Error as e:
         print(f"Erro ao conectar ao MySQL: {e}")
         return None
-turma = []
+
 matricula = 0
 alunos = []
 def cadastrar_aluno():
@@ -37,11 +37,12 @@ def cadastrar_aluno():
         
         else:
             break
-    alunos = [nomes, sobrenome]
-    aluno = [alunos, turma]
+    
+   
+
     
                
-    while turma == [] or alunos == []:
+    while True:
         print("opções:")
         print("1 - 1 ANO")
         print("2 - 2 ANO")
@@ -78,28 +79,31 @@ def cadastrar_aluno():
         else:
             print("turma inválida...")
             continue
-        matricula += 1
-        print(f"a matrícula do aluno é: {matricula}")
-        turma.append(turmas)
-        alunos.append(nomes, sobrenome)
+        break
+    matricula += 1
+    print(f"a matrícula do aluno é: {matricula}")
+        
+       
+    alunos.append([nomes, sobrenome, turmas, matricula])
 
 
 nota = []
-def registrar_notas(alunos, nota):
+def registrar_notas(nomes, nota):
     
     if len(alunos) == 0:
         print("nenhum aluno cadastrado")
         return
     print ("qual aluno você quer registrar uma nota?")
     
-    nome = input("Digite o nome do aluno: ").strip()
+    nome = input("Digite o 1 nome do aluno: ").strip() + input("digite o sobrenome").strip()
+
 
     encontrados = []
-  
-
-
-
-
+   
+    if nome in alunos:
+        encontrados.append(nome)
+        print(f"encontrados: {encontrados}")
+    print("nota de trabalho: ")
 
 
 
@@ -107,6 +111,6 @@ def registrar_notas(alunos, nota):
 
 
 cadastrar_aluno()
-cadastrar_aluno()
+
 print(alunos)
 registrar_notas(alunos, nota)
