@@ -78,34 +78,38 @@ def cadastrar_aluno():
 def apagar_aluno():
     while True:
         if not alunos:
+            print("/////////////////////////")
             print("não há alunos cadastrados")
-            continue
-        print("deseja apagar um usuario?")
-        print("sim/yes/s \nnão/no/n")
-        escolha = input().lower
+            print("/////////////////////////")
+            return
 
-        if not escolha().strip():
-            print("campo vazio, tente novamente") 
-            continue
-        if escolha() in ("sim" "yes" "s"):
-            print("qual a matricula do aluno que você deseja apagar?")
-            matricula_aluno = input()
-            if matricula_aluno.isdigit() == False:
-                print("ERRO: matricula te q ser um numero")
-                continue
+        print("Lista de alunos:")
+        for i in range(len(alunos)):
+            print(f"{i+1} - Nome: {alunos[i]} | Turma: {turma[i]}")
 
-            else:
-                alunos.pop(matricula_aluno - 1)
-                print("Aluno apagado com sucesso!")
-            
+        matricula = input("Digite a matrícula do aluno que deseja remover: ").strip()
 
-        
-            
-        elif escolha() in ("não" "no" "n"):
-            break
-        else:
-            print("///////////////\nescolha uma das opções\n///////////////")
-            continue
+        if not matricula.isdigit():
+            print("///////////////////")
+            print("matrícula inválida")
+            print("///////////////////")
+            continue  
+
+        indice = int(matricula) - 1
+
+        if indice < 0 or indice >= len(alunos):
+            print("////////////////////////")
+            print("matrícula não encontrada")
+            print("////////////////////////")
+            continue  
+
+        print(f"Removendo aluno {alunos[indice]}...")
+
+        alunos.pop(indice)
+        turma.pop(indice)
+
+        print("Aluno removido com sucesso!")
+        break 
 
 
 
