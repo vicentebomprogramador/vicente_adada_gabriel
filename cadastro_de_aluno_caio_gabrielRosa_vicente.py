@@ -19,8 +19,8 @@ alunos = []
 def cadastrar_aluno():
     global matricula
     while True:
-        nomes = input("nome do aluno: ")
-        sobrenome = input("sobrenome: ")
+        nomes = input("nome do aluno: ").strip().lower()
+        sobrenome = input("sobrenome: ").strip().lower()
         if nomes == "":
             print("não pode campo vazio")
             continue
@@ -88,29 +88,82 @@ def cadastrar_aluno():
 
 
 nota = []
-def registrar_notas(nomes, nota):
-    
+def registrar_notas():
     if len(alunos) == 0:
         print("nenhum aluno cadastrado")
         return
-    print ("qual aluno você quer registrar uma nota?")
+
+    while True:
+        print("qual aluno você quer registrar uma nota?")
+
+        nome = input("Digite o 1º nome do aluno: ").strip().lower()
+        sobrenome = input("Digite o sobrenome: ").strip().lower()
+
+        nome_completo = nome + " " + sobrenome
+
+        aluno_encontrado = None
+
+        for aluno in alunos:
+            if aluno[0] + " " + aluno[1] == nome_completo:
+                aluno_encontrado = aluno
+                break
+
+        if aluno_encontrado == None:
+            print("aluno não encontrado")
+            continue
+        else:
+            print(f"aluno encontrado: {aluno_encontrado}")
+            break
+
+    while True:
+        nota_de_trabalho = input("nota de trabalho (0 a 10): ")
+
+        if nota_de_trabalho == "":
+            print("campo vazio")
+            continue
+
+        try:
+            nota_de_trabalho = float(nota_de_trabalho)
+        except:
+            print("precisa ser um número")
+            continue
+
+        if nota_de_trabalho < 0 or nota_de_trabalho > 10:
+            print("nota de 0 a 10")
+            continue
+        elif nota_de_trabalho >= 7:
+            print("acima da média")
+        elif nota_de_trabalho < 7:
+            print("abaixo da média")
+        break
+
+    while True:
+        nota_de_prova = input("nota de prova (0 a 10): ")
+
+        if nota_de_prova == "":
+            print("campo vazio")
+            continue
+
+        try:
+            nota_de_prova = float(nota_de_prova)
+        except:
+            print("precisa ser um número")
+            continue
+
+        if nota_de_prova < 0 or nota_de_prova > 10:
+            print("nota de 0 a 10")
+            continue
+        elif nota_de_prova >= 7:
+            print("acima da média")
+        elif nota_de_prova < 7:
+            print("abaixo da média")
+
+        break
+
+    aluno_encontrado.append(nota_de_trabalho)
+    aluno_encontrado.append(nota_de_prova)
     
-    nome = input("Digite o 1 nome do aluno: ").strip() + input("digite o sobrenome").strip()
+    print("notas registradas com sucesso!")
+    print(alunos)
 
 
-    encontrados = []
-   
-    if nome in alunos:
-        encontrados.append(nome)
-        print(f"encontrados: {encontrados}")
-    print("nota de trabalho: ")
-
-
-
-
-
-
-cadastrar_aluno()
-
-print(alunos)
-registrar_notas(alunos, nota)
