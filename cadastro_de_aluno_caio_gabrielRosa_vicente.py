@@ -24,77 +24,39 @@ def atualizar_aluno():
 
     escolha = input("escolha: ")
 
-    conexao = criar_conexao()
+    if escolha == "1":
 
-    if conexao:
+        novo_nome = input("novo nome: ")
 
-        cursor = conexao.cursor()
+        print("nome atualizado!")
 
-        if escolha == "1":
+    elif escolha == "2":
 
-            novo_nome = input("novo nome: ")
+        nova_turma = input("nova turma: ")
 
-            sql = "UPDATE alunos SET nome = %s WHERE matricula = %s"
+        print("turma atualizada!")
 
-            valores = (novo_nome, matricula_aluno)
-
-            cursor.execute(sql, valores)
-
-            conexao.commit()
-
-            print("nome atualizado!")
-
-        elif escolha == "2":
-
-            nova_turma = input("nova turma: ")
-
-            sql = "UPDATE alunos SET turma = %s WHERE matricula = %s"
-
-            valores = (nova_turma, matricula_aluno)
-
-            cursor.execute(sql, valores)
-
-            conexao.commit()
-
-            print("turma atualizada!")
-
-        else:
-            print("opção inválida")
-
-        cursor.close()
-        conexao.close()
+    else:
+        print("opção inválida")
 
 
 def listar_alunos():
 
-    conexao = criar_conexao()
+    dados = []
 
-    if conexao:
+    if len(dados) == 0:
+        print("nenhum aluno cadastrado")
 
-        cursor = conexao.cursor()
+    else:
 
-        sql = "SELECT * FROM alunos"
+        print("\n=== lista de alunos ===")
 
-        cursor.execute(sql)
+        for aluno in dados:
 
-        dados = cursor.fetchall()
-
-        if len(dados) == 0:
-            print("nenhum aluno cadastrado")
-
-        else:
-
-            print("\n=== lista de alunos ===")
-
-            for aluno in dados:
-
-                print("matricula:", aluno[0])
-                print("nome:", aluno[1])
-                print("turma:", aluno[2])
-                print()
-
-        cursor.close()
-        conexao.close()
+            print("matricula:", aluno[0])
+            print("nome:", aluno[1])
+            print("turma:", aluno[2])
+            print()
 
 
 def menu():
