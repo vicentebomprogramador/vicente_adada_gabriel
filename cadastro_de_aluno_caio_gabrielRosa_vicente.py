@@ -14,7 +14,7 @@ def criar_conexao():
     except Error as e:
         print(f"Erro ao conectar ao MySQL: {e}")
         return None
-
+    
 def atualizar_aluno():
 
     matricula_aluno = int(input("digite a matricula do aluno: "))
