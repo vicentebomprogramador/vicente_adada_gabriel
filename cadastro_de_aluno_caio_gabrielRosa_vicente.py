@@ -24,39 +24,77 @@ def atualizar_aluno():
 
     escolha = input("escolha: ")
 
-    if escolha == "1":
+    conexao = criar_conexao()
 
-        novo_nome = input("novo nome: ")
+    if conexao:
 
-        print("nome atualizado!")
+        cursor = conexao.cursor()
 
-    elif escolha == "2":
+        if escolha == "1":
 
-        nova_turma = input("nova turma: ")
+            novo_nome = input("novo nome: ")
 
-        print("turma atualizada!")
+            sql = "UPDATE alunos SET nome = %s WHERE matricula = %s"
 
-    else:
-        print("opção inválida")
+            valores = (novo_nome, matricula_aluno)
+
+            cursor.execute(sql, valores)
+
+            conexao.commit()
+
+            print("nome atualizado!")
+
+        elif escolha == "2":
+
+            nova_turma = input("nova turma: ")
+
+            sql = "UPDATE alunos SET turma = %s WHERE matricula = %s"
+
+            valores = (nova_turma, matricula_aluno)
+
+            cursor.execute(sql, valores)
+
+            conexao.commit()
+
+            print("turma atualizada!")
+
+        else:
+            print("opção inválida")
+
+        cursor.close()
+        conexao.close()
 
 
 def listar_alunos():
 
-    dados = []
+    conexao = criar_conexao()
 
-    if len(dados) == 0:
-        print("nenhum aluno cadastrado")
+    if conexao:
 
-    else:
+        cursor = conexao.cursor()
 
-        print("\n=== lista de alunos ===")
+        sql = "SELECT * FROM alunos"
 
-        for aluno in dados:
+        cursor.execute(sql)
 
-            print("matricula:", aluno[0])
-            print("nome:", aluno[1])
-            print("turma:", aluno[2])
-            print()
+        dados = cursor.fetchall()
+
+        if len(dados) == 0:
+            print("nenhum aluno cadastrado")
+
+        else:
+
+            print("\n=== lista de alunos ===")
+
+            for aluno in dados:
+
+                print("matricula:", aluno[0])
+                print("nome:", aluno[1])
+                print("turma:", aluno[2])
+                print()
+
+        cursor.close()
+        conexao.close()
 
 
 def menu():
