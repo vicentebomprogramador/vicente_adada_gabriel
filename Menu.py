@@ -1,13 +1,18 @@
 def menu():
 
-    print("=== ESCOLHA O ATOR ===")
-    print("1 - aluno")
-    print("2 - professor")
-    print("3 - diretor")
-
-    ator = input("quem é você? ").strip()
 
     while True:
+
+
+        print("=== ESCOLHA O ATOR ===")
+        print("1 - aluno")
+        print("2 - professor")
+        print("3 - diretor")
+
+        
+        ator = input("quem é você? ").strip()
+
+        
 
         print("\n=== MENU ===")
 
@@ -84,7 +89,6 @@ def menu():
 
         else:
             print("ator inválido.")
-            break
-
-
+        continue
+        
 menu()
