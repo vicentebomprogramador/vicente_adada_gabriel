@@ -17,7 +17,7 @@ def menu():
         print("\n=== MENU ===")
 
         if ator == "1":
-
+            print("menu do aluno")
             print("1 - cadastrar aluno")
             print("2 - calcular media")
             print("0 - sair")
@@ -38,7 +38,7 @@ def menu():
                 print("opção inválida.")
 
         elif ator == "2":
-
+            print("menu do professor")
             print("1 - registrar notas")
             print("2 - atualizar aluno")
             print("3 - calcular media")
@@ -67,7 +67,7 @@ def menu():
                 print("opção inválida.")
 
         elif ator == "3":
-
+            print("menu do diretor")
             print("1 - listar alunos")
             print("2 - apagar aluno")
             print("0 - sair")
