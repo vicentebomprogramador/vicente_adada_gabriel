@@ -82,32 +82,42 @@ def registrar_notas():
         return
 
     matricula = resultado[0]
-
     while True:
-        try:
+        print("qual matéria?")
+        print("opções:")
+        print("L - Levantamento de requisitos")
+        print("D - Desenvolver algoritmos")
+        print("B - Banco de Dados")
+        materia = input()
+        if materia == ("L"):
+          while True:
+           try:
             trabalho = float(input("nota trabalho (0-10): "))
             if trabalho < 0 or trabalho > 10:
                 print("nota inválida")
                 continue
             break
-        except:
+           except:
             print("digite número válido")
+            continue
+            
+                
 
-    while True:
-        try:
-            prova = float(input("nota prova (0-10): "))
-            if prova < 0 or prova > 10:
-                print("nota inválida")
-                continue
-            break
-        except:
-            print("digite número válido")
+        while True:
+                try:
+                    prova = float(input("nota prova (0-10): "))
+                    if prova < 0 or prova > 10:
+                        print("nota inválida")
+                        continue
+                    break
+                except:
+                    print("digite número válido")
 
-    cursor.execute("""
-    INSERT INTO notas (matricula, trabalho, prova)
-    VALUES (%s, %s, %s)
-    """, (matricula, trabalho, prova))
+        cursor.execute("""
+        INSERT INTO notas (matricula, trabalho, prova)
+        VALUES (%s, %s, %s)
+        """, (matricula, trabalho, prova))
 
-    conexao.commit()
+        conexao.commit()
 
-    print("notas registradas com sucesso!")
+        print("notas registradas com sucesso!")
