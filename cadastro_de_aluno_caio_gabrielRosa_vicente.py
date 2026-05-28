@@ -8,7 +8,7 @@ def criar_conexao():
             host='127.0.0.1',
             user='root',
             password='Senac2026',
-            database='sistema_escolar'
+            database='projeto_final'
         )
         return conexao
     except Error as e:
@@ -88,12 +88,37 @@ def registrar_notas():
         print("L - Levantamento de requisitos")
         print("D - Desenvolver algoritmos")
         print("B - Banco de Dados")
-        materia = input()
-        if materia == ("L"):
+        materia_escolhida = input()
+        if materia_escolhida == ("L"):
+          materia_escolhida = "Levantamento de requisitos"
           while True:
            try:
-            trabalho = float(input("nota trabalho (0-10): "))
-            if trabalho < 0 or trabalho > 10:
+            nota1= float(input("nota trabalho (0-10): "))
+            if nota1 < 0 or nota1 > 10:
+                print("nota inválida")
+                continue
+            break
+           except:
+            print("digite número válido")
+            continue
+         
+                
+
+          while True:
+                try:
+                    nota2 = float(input("nota prova (0-10): "))
+                    if nota2 < 0 or nota2 > 10:
+                        print("nota inválida")
+                        continue
+                    break
+                except:
+                    print("digite número válido")
+        elif materia_escolhida == ("D"):
+          materia_escolhida = "Desenvolver algoritmos"
+          while True:
+           try:
+            nota1= float(input("nota trabalho (0-10): "))
+            if nota1 < 0 or nota1 > 10:
                 print("nota inválida")
                 continue
             break
@@ -103,21 +128,54 @@ def registrar_notas():
             
                 
 
-        while True:
+          while True:
                 try:
-                    prova = float(input("nota prova (0-10): "))
-                    if prova < 0 or prova > 10:
+                    nota2 = float(input("nota prova (0-10): "))
+                    if nota2 < 0 or nota2 > 10:
                         print("nota inválida")
                         continue
                     break
                 except:
                     print("digite número válido")
 
+        elif materia_escolhida == ("B"):
+          materia_escolhida = "Banco de dados"
+          while True:
+           try:
+            nota1= float(input("nota trabalho (0-10): "))
+            if nota1 < 0 or nota1 > 10:
+                print("nota inválida")
+                continue
+            break
+           except:
+            print("digite número válido")
+            continue
+        
+        
+
+          while True:
+                try:
+                    nota2 = float(input("nota prova (0-10): "))
+                    if nota2 < 0 or nota2 > 10:
+                        print("nota inválida")
+                        continue
+                    break
+                except:
+                    print("digite número válido")
+        else:
+          print("matéria inválida")
+          continue
+        
+
+
         cursor.execute("""
-        INSERT INTO notas (matricula, trabalho, prova)
+        INSERT INTO notas (matricula, nota1, nota2)
         VALUES (%s, %s, %s)
-        """, (matricula, trabalho, prova))
+        """, (matricula, nota1, nota2))
 
         conexao.commit()
 
         print("notas registradas com sucesso!")
+        break
+cadastrar_aluno()
+registrar_notas()
