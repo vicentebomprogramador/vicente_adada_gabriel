@@ -17,6 +17,7 @@ def menu():
             print("\n=== MENU DO ALUNO ===")
             print("1 - cadastrar aluno")
             print("2 - calcular media")
+            print("3 - situação do aluno")
             print("0 - sair")
 
             opcao = input("escolha uma opção: ").strip()
@@ -26,6 +27,9 @@ def menu():
 
             elif opcao == "2":
                 calcular_media()
+
+            elif opcao == "3":
+                situação_aluno()
 
             elif opcao == "0":
                 print("saindo...")
