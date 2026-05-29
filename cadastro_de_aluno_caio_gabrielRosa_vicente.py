@@ -19,7 +19,7 @@ def criar_conexao():
 conexao = criar_conexao()
 
 if conexao:
-    cursor = conexao.cursor()
+    cursor = conexao.cursor(buffered=True)
 else:
     print("Erro de conexão")
     exit()
@@ -84,14 +84,16 @@ def registrar_notas():
     matricula = resultado[0]
     while True:
         print("qual matéria?")
-        print("opções:")
+        print("\nOpções:")
         print("L - Levantamento de requisitos")
         print("D - Desenvolver algoritmos")
         print("B - Banco de Dados")
         materia_escolhida = input()
         if materia_escolhida == ("L"):
           materia_escolhida = "Levantamento de requisitos"
+          materia_id = 1
           while True:
+           
            try:
             nota1= float(input("nota trabalho (0-10): "))
             if nota1 < 0 or nota1 > 10:
@@ -115,9 +117,10 @@ def registrar_notas():
                     print("digite número válido")
         elif materia_escolhida == ("D"):
           materia_escolhida = "Desenvolver algoritmos"
+          materia_id = 2
           while True:
            try:
-            nota1= float(input("nota trabalho (0-10): "))
+            nota1_ = float(input("nota trabalho (0-10): "))
             if nota1 < 0 or nota1 > 10:
                 print("nota inválida")
                 continue
@@ -139,6 +142,7 @@ def registrar_notas():
                     print("digite número válido")
 
         elif materia_escolhida == ("B"):
+          materia_id = 3
           materia_escolhida = "Banco de dados"
           while True:
            try:
@@ -156,22 +160,31 @@ def registrar_notas():
           while True:
                 try:
                     nota2 = float(input("nota prova (0-10): "))
-                    if nota2 < 0 or nota2 > 10:
+                    if nota2< 0 or nota2 > 10:
                         print("nota inválida")
                         continue
                     break
                 except:
                     print("digite número válido")
+        
         else:
           print("matéria inválida")
           continue
         
-
-
         cursor.execute("""
-        INSERT INTO notas (matricula, nota1, nota2)
-        VALUES (%s, %s, %s)
-        """, (matricula, nota1, nota2))
+            INSERT INTO notas (matricula,materia_id, nota1, nota2)
+            VALUES (%s, %s, %s, %s)
+        """, (matricula,materia_id, nota1, nota2))
+
+ 
+
+
+
+
+
+
+
+
 
         conexao.commit()
 
