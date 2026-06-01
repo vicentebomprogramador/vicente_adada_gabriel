@@ -29,7 +29,7 @@ def menu():
                 calcular_media()
 
             elif opcao == "3":
-                situação_aluno()
+                situacao_aluno()
 
             elif opcao == "0":
                 print("saindo...")
@@ -58,7 +58,7 @@ def menu():
                 calcular_media()
 
             elif opcao == "4":
-                situação_aluno()
+                situacao_aluno()
 
             elif opcao == "0":
                 print("saindo...")
