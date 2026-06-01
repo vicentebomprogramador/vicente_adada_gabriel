@@ -1,5 +1,3 @@
-import mysql.connector
-from mysql.connector import Error
 from Menu import *
 from Listar import *
 from Atualizar import*
