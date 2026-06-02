@@ -19,7 +19,7 @@ def criar_conexao():
 conexao = criar_conexao()
 
 if conexao:
-    cursor = conexao.cursor(buffered=True)
+    cursor = conexao.cursor(buffered=True) 
 else:
     print("Erro de conexão")
     exit()
