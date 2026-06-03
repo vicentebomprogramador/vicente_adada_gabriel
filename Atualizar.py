@@ -1,5 +1,3 @@
-<<<<<<< Updated upstream
-=======
 import mysql.connector
 from mysql.connector import Error
 
@@ -27,9 +25,6 @@ else:
     print("Erro de conexão")
     exit()
 
-
-
->>>>>>> Stashed changes
 def atualizar_aluno():
 
     matricula_aluno = int(input("digite a matricula do aluno: "))

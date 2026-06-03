@@ -1,10 +1,6 @@
 from Menu import *
 from Listar import *
 from Atualizar import*
-<<<<<<< Updated upstream
-
-
-=======
 import mysql.connector
 from mysql.connector import Error
 
@@ -32,7 +28,6 @@ else:
     print("Erro de conexão")
     exit()
 
->>>>>>> Stashed changes
 atualizar_aluno()
 listar_alunos()
 menu()

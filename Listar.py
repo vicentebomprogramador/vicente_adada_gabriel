@@ -1,5 +1,3 @@
-<<<<<<< Updated upstream
-=======
 import mysql.connector
 from mysql.connector import Error
 
@@ -28,7 +26,6 @@ else:
     exit()
 
 
->>>>>>> Stashed changes
 def listar_alunos():
 
     conexao = criar_conexao()
