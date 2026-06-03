@@ -59,29 +59,28 @@ def cadastrar_aluno():
     """
 
     valores = (nome, sobrenome, turma)
-
     cursor.execute(sql, valores)
     conexao.commit()
 
-    print("aluno cadastrado com sucesso!")
+    print(f"Aluno cadastrado com sucesso!")
+    print(f"Matrícula do aluno: {cursor.lastrowid}")
 
 
 def registrar_notas():
-    nome = input("nome do aluno: ").strip().lower()
-    sobrenome = input("sobrenome: ").strip().lower()
+    matricula = input("qual é a matrícula do aluno?")
 
     cursor.execute("""
     SELECT matricula FROM alunos
-    WHERE nome=%s AND sobrenome=%s
-    """, (nome, sobrenome))
+    WHERE matricula=%s
+    """, (matricula,))
 
     resultado = cursor.fetchone()
 
     if resultado is None:
         print("aluno não encontrado")
         return
-
-    matricula = resultado[0]
+    
+   
     while True:
         print("qual matéria?")
         print("\nOpções:")
