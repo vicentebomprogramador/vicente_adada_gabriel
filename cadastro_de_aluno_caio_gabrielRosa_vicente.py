@@ -1,6 +1,5 @@
 import mysql.connector
 from mysql.connector import Error
-from materias import calcular_media_situacao
 
 
 def criar_conexao():
@@ -77,13 +76,11 @@ def registrar_notas():
 
     resultado = cursor.fetchone()
 
-    if not resultado:
-       print("aluno não encontrado")
-       return
-    
-    matricula = resultado[0]
-
-
+    if resultado is None:
+        print("aluno não encontrado")
+        return
+   
+   
     while True:
         print("qual matéria?")
         print("\nOpções:")
@@ -190,17 +187,5 @@ def registrar_notas():
 
         conexao.commit()
 
-        media, situacao = calcular_media_situacao(nota1, nota2)
-
-        print("\nNotas registradas com sucesso!")
-        print(f"Nota 1: {nota1}")
-        print(f"Nota 2: {nota2}")
-        print(f"Média: {media:.1f}")
-        print(f"Situação: {situacao}")
-
+        print("notas registradas com sucesso!")
         break
-
-
-    
-cadastrar_aluno()
-registrar_notas()
