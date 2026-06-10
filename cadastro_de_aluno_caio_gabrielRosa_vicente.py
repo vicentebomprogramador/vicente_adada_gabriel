@@ -119,7 +119,7 @@ def registrar_notas():
           materia_id = 2
           while True:
            try:
-            nota1_ = float(input("nota trabalho (0-10): "))
+            nota1 = float(input("nota trabalho (0-10): "))
             if nota1 < 0 or nota1 > 10:
                 print("nota inválida")
                 continue
@@ -189,3 +189,6 @@ def registrar_notas():
 
         print("notas registradas com sucesso!")
         break
+
+cadastrar_aluno()
+registrar_notas()
