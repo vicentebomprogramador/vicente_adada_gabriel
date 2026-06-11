@@ -132,8 +132,8 @@ def registrar_notas():
 
           while True:
                 try:
-                    nota1 = float(input("nota prova (0-10): "))
-                    if nota1 < 0 or nota1 > 10:
+                    nota2 = float(input("nota prova (0-10): "))
+                    if nota2 < 0 or nota2 > 10:
                         print("nota inválida")
                         continue
                     break
