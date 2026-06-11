@@ -3,6 +3,8 @@ from cadastrar import *
 from listar import *
 from registrar_nota import *
 from atualizar import *
+from apagar_aluno import *
+from situacao_aluno import *
 import mysql.connector
 from mysql.connector import Error
 
