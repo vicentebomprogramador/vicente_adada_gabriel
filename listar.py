@@ -51,7 +51,8 @@ def listar_alunos():
 
                 print("matricula:", aluno[0])
                 print("nome:", aluno[1])
-                print("turma:", aluno[2])
+                print("sobrenome:", aluno[2])
+                print("turma:", aluno[3])
                 print()
 
         cursor.close()

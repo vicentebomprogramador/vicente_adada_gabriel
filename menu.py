@@ -1,6 +1,9 @@
 import mysql.connector
 from mysql.connector import Error
-
+from cadastrar import *
+from listar import *
+from registrar_nota import *
+from atualizar import *
 
 def criar_conexao():
     try:
@@ -59,14 +62,15 @@ def menu():
 
             elif opcao == "3":
                 situacao_aluno()
-
+                 
             elif opcao == "0":
                 print("saindo...")
                 break
 
             else:
                 print("opção inválida.")
-
+                continue
+            break
         elif ator == "2":
             print("\n=== MENU DO PROFESSOR ===")
             print("1 - registrar notas")
@@ -95,7 +99,8 @@ def menu():
 
             else:
                 print("opção inválida.")
-
+                continue
+            break
         elif ator == "3":
             print("\n=== MENU DO DIRETOR ===")
             print("1 - listar alunos")
@@ -119,6 +124,5 @@ def menu():
 
         else:
             print("ator inválido.")
-        continue
-        
-menu()
+            continue
+        break

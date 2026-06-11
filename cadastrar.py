@@ -64,6 +64,3 @@ def cadastrar_aluno():
 
     print(f"Aluno cadastrado com sucesso!")
     print(f"Matrícula do aluno: {cursor.lastrowid}")
-
-
-
