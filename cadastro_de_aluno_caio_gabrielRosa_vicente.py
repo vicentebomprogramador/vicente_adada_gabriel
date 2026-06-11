@@ -1,158 +1,181 @@
-# import mysql.connector
-# from mysql.connector import Error
+import mysql.connector
+from mysql.connector import Error
 
-# def criar_conexao():
 
-#     try:
-#         conexao = mysql.connector.connect(
-#             host='127.0.0.1',
-#             user='root',
-#             password='Senac2026',
-#             database='sistema_escolar'
-#         )
-#         return conexao
-#     except Error as e:
-#         print(f"Erro ao conectar ao MySQL: {e}")
-#         return None
-    
-turma = []
-matricula = 0
-alunos = []
+def criar_conexao():
+    try:
+        conexao = mysql.connector.connect(
+            host='127.0.0.1',
+            user='root',
+            password='Senac2026',
+            database='projeto_final'
+        )
+        return conexao
+    except Error as e:
+        print(f"Erro ao conectar ao MySQL: {e}")
+        return None
+
+
+conexao = criar_conexao()
+
+if conexao:
+    cursor = conexao.cursor(buffered=True) 
+else:
+    print("Erro de conexão")
+    exit()
+
+
+
 def cadastrar_aluno():
-    global matricula
-    nomes = input("qual é o nome do aluno que voce deseja cadastrar?: ")
-    if nomes == "":
-        print("não pode campo vazio")
-        return
-
-    elif not nomes.isalpha():
-        print("nome inválido...")
-        return 
-    aluno = [alunos, turma]
-    while turma == [] or alunos == []:
-        print("opções:")
-        print("1 - 1 ANO")
-        print("2 - 2 ANO")
-        print("3 - 3 ANO")
-        print("4 - 4 ANO")
-        print("5 - 5 ANO")
-        print("6 - 6 ANO")
-        print("7 - 7 ANO")
-        print("8 - 8 ANO")
-        print("9 - 9 ANO")
-        turmas = input("qual é a turma do aluno?: ")
-        
-        if turmas == "":
-            print("não pode campo vazio")
-            continue
-        elif turmas == "1":
-            print("seja bem-vindo ao primeiro ano na escola, boa sorte ")
-        elif turmas == "2":
-            print("segundo ano na escola, boa sorte ")
-        elif turmas == "3":
-            print("terceiro ano na escola, boa sorte ")
-        elif turmas == "4":
-            print("ta ficando grande hein, boa sorte ")
-        elif turmas == "5":
-            print("quinto ano o ano da zoeira, boa sorte ")
-        elif turmas == "6":
-            print("primeiro ano no fundamental 2, boa sorte ")
-        elif turmas == "7":
-            print("voce é um adolescente, boa sorte ")
-        elif turmas == "8":
-            print("seja bem-vindo ao oitavo ano na escola, boa sorte ")
-        elif turmas == "9":
-            print("ultimo ano antes do ensino médio, boa sorte ")
-        else:
-            print("turma inválida...")
-            continue
-        matricula += 1
-        print(f"sua matricula é: {matricula}")
-        turma.append(turmas)
-        alunos.append(nomes)
-        
-
-
-
-def apagar_aluno():
     while True:
-        if not alunos:
-            print("/////////////////////////")
-            print("não há alunos cadastrados")
-            print("/////////////////////////")
-            return
+        nome = input("nome do aluno: ").strip().lower()
+        sobrenome = input("sobrenome: ").strip().lower()
 
-        print("Lista de alunos:")
-        for i in range(len(alunos)):
-            print(f"{i+1} - Nome: {alunos[i]} | Turma: {turma[i]}")
+        if nome == "" or sobrenome == "":
+            print("campo vazio")
+            continue
 
-        matricula = input("Digite a matrícula do aluno que deseja remover: ").strip()
+        if not nome.isalpha() or not sobrenome.isalpha():
+            print("nome inválido")
+            continue
 
-        if not matricula.isdigit():
-            print("///////////////////")
-            print("matrícula inválida")
-            print("///////////////////")
-            continue  
+        break
 
-        indice = int(matricula) - 1
+    while True:
+        print("opções de turma:")
+        print("1 a 9")
 
-        if indice < 0 or indice >= len(alunos):
-            print("////////////////////////")
-            print("matrícula não encontrada")
-            print("////////////////////////")
-            continue  
+        turma = input("turma: ")
 
-        print(f"Removendo aluno {alunos[indice]}...")
+        if turma in ["1","2","3","4","5","6","7","8","9"]:
+            print("turma cadastrada!")
+            break
+        else:
+            print("turma inválida")
 
-        alunos.pop(indice)
-        turma.pop(indice)
+    sql = """
+    INSERT INTO alunos (nome, sobrenome, turma)
+    VALUES (%s, %s, %s)
+    """
 
-        print("Aluno removido com sucesso!")
-        break 
+    valores = (nome, sobrenome, turma)
+    cursor.execute(sql, valores)
+    conexao.commit()
+
+    print(f"Aluno cadastrado com sucesso!")
+    print(f"Matrícula do aluno: {cursor.lastrowid}")
+
 
 def registrar_notas():
+    matricula = input("qual é a matrícula do aluno?")
 
+    cursor.execute("""
+    SELECT matricula FROM alunos
+    WHERE matricula=%s
+    """, (matricula,))
 
+    resultado = cursor.fetchone()
 
-
+    if resultado is None:
+        print("aluno não encontrado")
+        return
+   
+   
     while True:
-        try:
-            trabalho = float(input("nota trabalho (0-10): "))
-            if trabalho < 0 or trabalho > 10:
+        print("qual matéria?")
+        print("\nOpções:")
+        print("L - Levantamento de requisitos")
+        print("D - Desenvolver algoritmos")
+        print("B - Banco de Dados")
+        materia_escolhida = input()
+        if materia_escolhida == ("L"):
+          materia_escolhida = "Levantamento de requisitos"
+          materia_id = 1
+          while True:
+           
+           try:
+            nota1= float(input("nota trabalho (0-10): "))
+            if nota1 < 0 or nota1 > 10:
                 print("nota inválida")
                 continue
             break
-        except:
+           except:
             print("digite número válido")
+            continue
+         
+                
 
-    while True:
-        try:
-            prova = float(input("nota prova (0-10): "))
-            if prova < 0 or prova > 10:
+          while True:
+                try:
+                    nota2 = float(input("nota prova (0-10): "))
+                    if nota2 < 0 or nota2 > 10:
+                        print("nota inválida")
+                        continue
+                    break
+                except:
+                    print("digite número válido")
+        elif materia_escolhida == ("D"):
+          materia_escolhida = "Desenvolver algoritmos"
+          materia_id = 2
+          while True:
+           try:
+            nota1 = float(input("nota trabalho (0-10): "))
+            if nota1 < 0 or nota1 > 10:
                 print("nota inválida")
                 continue
             break
-        except:
+           except:
             print("digite número válido")
+            continue
+            
+                
 
+          while True:
+                try:
+                    nota1 = float(input("nota prova (0-10): "))
+                    if nota1 < 0 or nota1 > 10:
+                        print("nota inválida")
+                        continue
+                    break
+                except:
+                    print("digite número válido")
 
-    print("notas registradas com sucesso!")
-    
-    return trabalho, prova
-
-def situacao_aluno(trabalho, prova):
-    media = (trabalho + prova) / 2
-
-    print(f"Média: {media:.1f}")
-
-    if media >= 7:
-        print("Aluno aprovado")
-    elif media >= 5:
-        print("Aluno em recuperação")
-    else:
-        print("Aluno reprovado")
+        elif materia_escolhida == ("B"):
+          materia_id = 3
+          materia_escolhida = "Banco de dados"
+          while True:
+           try:
+            nota1= float(input("nota trabalho (0-10): "))
+            if nota1 < 0 or nota1 > 10:
+                print("nota inválida")
+                continue
+            break
+           except:
+            print("digite número válido")
+            continue
+        
         
 
+          while True:
+                try:
+                    nota2 = float(input("nota prova (0-10): "))
+                    if nota2< 0 or nota2 > 10:
+                        print("nota inválida")
+                        continue
+                    break
+                except:
+                    print("digite número válido")
+        
+        else:
+          print("matéria inválida")
+          continue
+        
+        cursor.execute("""
+            INSERT INTO notas (matricula,materia_id, nota1, nota2)
+            VALUES (%s, %s, %s, %s)
+        """, (matricula,materia_id, nota1, nota2))
+
+ 
 
 
 
@@ -162,9 +185,10 @@ def situacao_aluno(trabalho, prova):
 
 
 
+        conexao.commit()
 
+        print("notas registradas com sucesso!")
+        break
+criar_conexao()
 cadastrar_aluno()
 registrar_notas()
-apagar_aluno()
-trabalho, prova = registrar_notas()
-situacao_aluno(trabalho, prova)
