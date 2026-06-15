@@ -48,13 +48,13 @@ def apagar_aluno():
 
             print("Lista de alunos:")
             for i in range(len(alunos)):
-                print(f"{i+1} - Nome: {alunos[1]} | Turma: {aluno[3]}")
+                print(f"{i+1} - Nome: {alunos[1]} | Turma: {alunos[3]}")
             print("\nLista de alunos:")
             for aluno in alunos:
                 print(f"Matrícula: {aluno[0]} | Nome: {aluno[1]} | Turma: {aluno[2]}")
 
             matricula = input("Digite a matrícula do aluno que deseja remover: ").strip()
-            matricula = input("\nDigite a matrícula do aluno que deseja remover: ")
+            
 
             if not matricula.isdigit():
                 print("///////////////////")

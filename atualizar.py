@@ -44,16 +44,17 @@ def atualizar_aluno():
         if escolha == "1":
 
             novo_nome = input("novo nome: ")
+            novo_sobrenome = input("novo sobrenome: ")
 
-            sql = "UPDATE alunos SET nome = %s WHERE matricula = %s"
+            sql = "UPDATE alunos SET nome = %s, sobrenome = %s WHERE matricula = %s"
 
-            valores = (novo_nome, matricula_aluno)
+            valores = (novo_nome, novo_sobrenome, matricula_aluno)
 
             cursor.execute(sql, valores)
 
             conexao.commit()
 
-            print("nome atualizado!")
+            print("nome e sobrenome atualizados!")
 
         elif escolha == "2":
 
