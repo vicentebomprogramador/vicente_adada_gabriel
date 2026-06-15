@@ -1,6 +1,7 @@
 import mysql.connector
 from mysql.connector import Error
 
+
 try:
     conexao = mysql.connector.connect(
         host="127.0.0.1",
@@ -17,105 +18,101 @@ except Error as e:
 
 
 
-while True:
-    
-    cursor.execute("""
-    INSERT INTO alunos (nome, sobrenome, turma)
-    VALUES (%s, %s, %s)
-    """, (aluno[1], aluno[2], aluno[3]))
+def situacao_aluno(nota1, nota2):
+    media = (nota1 + nota2) / 2
 
-    conexao.commit()
+    print(f"\nNota 1: {nota1}")
+    print(f"Nota 2: {nota2}")
+    print(f"Média: {media:.1f}")
 
-    matricula = cursor.lastrowid
-
-    print("\nAluno cadastrado com sucesso!")
-    print(f"Matrícula do aluno: {matricula}")
+    if media >= 7:
+        print("Situação: APROVADO")
+    else:
+        print("Situação: REPROVADO")
 
 
-
-    cursor.execute("""
-    SELECT matricula
-    FROM alunos
-    WHERE matricula = %s
-    """, (matricula,))
-
-    resultado = cursor.fetchone()
-
-    if resultado:
-
-        while True:
-            print("\nQual matéria?")
-            print("L - Levantamento de requisitos")
-            print("D - Desenvolver algoritmos")
-            print("B - Banco de Dados")
-
-            materia = input("Opção: ").upper()
-
-            if materia == "L":
-                materia_id = 1
-                break
-
-            elif materia == "D":
-                materia_id = 2
-                break
-
-            elif materia == "B":
-                materia_id = 3
-                break
-
-            else:
-                print("Matéria inválida")
-
-        while True:
-            try:
-                nota1 = float(input("Nota trabalho (0-10): "))
-                if 0 <= nota1 <= 10:
-                    break
-                print("Nota inválida")
-            except:
-                print("Digite um número válido")
-
-        while True:
-            try:
-                nota2 = float(input("Nota prova (0-10): "))
-                if 0 <= nota2 <= 10:
-                    break
-                print("Nota inválida")
-            except:
-                print("Digite um número válido")
-
-        cursor.execute("""
-        INSERT INTO notas (matricula, materia_id, nota1, nota2)
-        VALUES (%s, %s, %s, %s)
-        """, (matricula, materia_id, nota1, nota2))
+    while True:
 
         conexao.commit()
 
-        print("\nNotas registradas com sucesso!")
+        matricula = cursor.lastrowid
 
+        print("\nAluno cadastrado com sucesso!")
+        print(f"Matrícula do aluno: {matricula}")
 
-    cursor.execute("""
-    SELECT nota1, nota2
-    FROM notas
-    WHERE matricula = %s
-    """, (matricula,))
+        cursor.execute("""
+        SELECT matricula
+        FROM alunos
+        WHERE matricula = %s
+        """, (matricula,))
 
-    notas = cursor.fetchall()
+        resultado = cursor.fetchone()
 
-    if len(notas) == 0:
-        print("Nenhuma nota encontrada.")
-    else:
-        for nota1, nota2 in notas:
-            media = (nota1 + nota2) / 2
+        if resultado:
 
-            print(f"\nNota 1: {nota1}")
-            print(f"Nota 2: {nota2}")
-            print(f"Média: {media:.1f}")
+            while True:
+                print("\nQual matéria?")
+                print("L - Levantamento de requisitos")
+                print("D - Desenvolver algoritmos")
+                print("B - Banco de Dados")
 
-            if media >= 7:
-                print("Situação: APROVADO")
-            else:
-                print("Situação: REPROVADO")
+                materia = input("Opção: ").upper()
 
-    cursor.close()
-    conexao.close()
+                if materia == "L":
+                    materia_id = 1
+                    break
+
+                elif materia == "D":
+                    materia_id = 2
+                    break
+
+                elif materia == "B":
+                    materia_id = 3
+                    break
+
+                else:
+                    print("Matéria inválida")
+
+            while True:
+                try:
+                    nota1 = float(input("Nota trabalho (0-10): "))
+                    if 0 <= nota1 <= 10:
+                        break
+                    print("Nota inválida")
+                except:
+                    print("Digite um número válido")
+
+            while True:
+                try:
+                    nota2 = float(input("Nota prova (0-10): "))
+                    if 0 <= nota2 <= 10:
+                        break
+                    print("Nota inválida")
+                except:
+                    print("Digite um número válido")
+
+            cursor.execute("""
+            INSERT INTO notas (matricula, materia_id, nota1, nota2)
+            VALUES (%s, %s, %s, %s)
+            """, (matricula, materia_id, nota1, nota2))
+
+            conexao.commit()
+
+            print("\nNotas registradas com sucesso!")
+
+        cursor.execute("""
+        SELECT nota1, nota2
+        FROM notas
+        WHERE matricula = %s
+        """, (matricula,))
+
+        notas = cursor.fetchall()
+
+        if len(notas) == 0:
+            print("Nenhuma nota encontrada.")
+        else:
+            for nota1, nota2 in notas:
+                situacao_aluno(nota1, nota2)
+
+        cursor.close()
+        conexao.close()

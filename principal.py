@@ -1,10 +1,11 @@
-from menu import *
-from cadastrar import *
-from listar import *
-from registrar_nota import *
-from atualizar import *
-from apagar_aluno import *
-from situacao_aluno import *
+from cadastrar import cadastrar_aluno
+from apagar_aluno import apagar_aluno
+from situacao_aluno import situacao_aluno
+from menu import menu
+from listar import listar_alunos
+from registrar_nota import registrar_notas
+from atualizar import atualizar_aluno
+
 import mysql.connector
 from mysql.connector import Error
 

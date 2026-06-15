@@ -102,5 +102,4 @@ def apagar_aluno():
             if 'conexao' in locals():
                 conexao.close()
 
-    apagar_aluno( )
-    apagar_aluno()
+   
