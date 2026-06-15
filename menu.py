@@ -4,7 +4,8 @@ from cadastrar import *
 from listar import *
 from registrar_nota import *
 from atualizar import *
-
+from situacao_aluno import *
+from apagar_aluno import *
 def criar_conexao():
     try:
         conexao = mysql.connector.connect(
@@ -48,8 +49,7 @@ def menu():
         if ator == "1":
             print("\n=== MENU DO ALUNO ===")
             print("1 - cadastrar aluno")
-            print("2 - calcular media")
-            print("3 - situação do aluno")
+            print("2 - situação do aluno")
             print("0 - sair")
 
             opcao = input("escolha uma opção: ").strip()
@@ -57,10 +57,8 @@ def menu():
             if opcao == "1":
                 cadastrar_aluno()
 
+            
             elif opcao == "2":
-                calcular_media()
-
-            elif opcao == "3":
                 situacao_aluno()
                  
             elif opcao == "0":
@@ -75,8 +73,8 @@ def menu():
             print("\n=== MENU DO PROFESSOR ===")
             print("1 - registrar notas")
             print("2 - atualizar aluno")
-            print("3 - calcular media")
-            print("4 - situação do aluno")
+            
+            print("3 - situação do aluno")
             print("0 - sair")
 
             opcao = input("escolha uma opção: ").strip()
@@ -87,10 +85,10 @@ def menu():
             elif opcao == "2":
                 atualizar_aluno()
 
-            elif opcao == "3":
-                calcular_media()
+            
+                
 
-            elif opcao == "4":
+            elif opcao == "3":
                 situacao_aluno()
 
             elif opcao == "0":
