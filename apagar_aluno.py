@@ -36,10 +36,10 @@ def apagar_aluno():
 
             cursor = conexao.cursor()
 
-            cursor.execute("SELECT matricula, nome, turma FROM alunos")
+            cursor.execute("SELECT matricula, nome, sobrenome, turma FROM alunos")
             alunos = cursor.fetchall()
 
-            if not alunos:
+            if len(alunos) == 0:
                 print("/////////////////////////")
                 print("não há alunos cadastrados")
                 print("Não há alunos cadastrados")
@@ -48,10 +48,9 @@ def apagar_aluno():
 
             print("Lista de alunos:")
             for i in range(len(alunos)):
-                print(f"{i+1} - Nome: {alunos[1]} | Turma: {alunos[3]}")
-            print("\nLista de alunos:")
+                print(f"{i+1} - Nome: {alunos[i][1]} | Sobrenome: {alunos[i][2]} | Turma: {alunos[i][3]}")
             for aluno in alunos:
-                print(f"Matrícula: {aluno[0]} | Nome: {aluno[1]} | Turma: {aluno[2]}")
+                print(f"Matrícula: {aluno[0]} | Nome: {aluno[1]} | Sobrenome: {aluno[2]} | Turma: {aluno[3]}")
 
             matricula = input("Digite a matrícula do aluno que deseja remover: ").strip()
             
@@ -65,31 +64,23 @@ def apagar_aluno():
             "DELETE FROM notas WHERE matricula = %s",
             (matricula,)
             )
-
-            indice = int(matricula) - 1
-
-            if indice < 0 or indice >= len(alunos):
-                print("////////////////////////")
-                print("matrícula não encontrada")
-                print("////////////////////////")
-                continue  
             cursor.execute(
-            "DELETE FROM alunos WHERE matricula = %s",
-            (matricula,)
-            )   
+                "DELETE FROM alunos WHERE matricula = %s",
+                (matricula,)
+            )
 
-            print(f"Removendo aluno {alunos[indice]}...")
-            conexao.commit()
 
-            alunos.pop(indice)
-            if cursor.rowcount > 0:
-                print("/////////////////////////")
-                print("Aluno removido com sucesso!")
-                print("/////////////////////////")
-            else:
+            if cursor.rowcount == 0:
                 print("/////////////////////////")
                 print("Matrícula não encontrada")
                 print("/////////////////////////")
+                continue
+
+            conexao.commit()
+
+            print("/////////////////////////")
+            print("Aluno removido com sucesso!")
+            print("/////////////////////////")
             return
         except mysql.connector.Error as erro:
             print(f"Erro: {erro}")
