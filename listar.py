@@ -54,6 +54,3 @@ def listar_alunos():
                 print("sobrenome:", aluno[2])
                 print("turma:", aluno[3])
                 print()
-
-        cursor.close()
-        conexao.close()

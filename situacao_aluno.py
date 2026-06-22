@@ -1,49 +1,41 @@
-import mysql.connector
-from mysql.connector import Error
-from registrar_nota import *
 from cadastrar import *
+
 import mysql.connector
-from mysql.connector import Error
 
-try:
-    conexao = mysql.connector.connect(
-        host="127.0.0.1",
-        user="root",
-        password="Senac2026",
-        database="projeto_final"
-    )
+conexao = mysql.connector.connect(
+    host="127.0.0.1",
+    user="root",
+    password="Senac2026",
+    database="projeto_final"
+)
 
-    cursor = conexao.cursor(buffered=True)
-
-except Error as e:
-    print(f"Erro ao conectar ao MySQL: {e}")
-    exit()
-
-
+cursor = conexao.cursor()
 def situacao_aluno():
-    matricula = input("Digite a matrícula: ")
+
+    matricula = input("Digite a matrícula do aluno: ")
 
     cursor.execute("""
-        SELECT nota1, nota2
-        FROM notas
-        WHERE matricula = %s
+    SELECT materias.nome, notas.nota1, notas.nota2
+    FROM notas
+    JOIN materias ON notas.materia_id = materias.id
+    WHERE notas.matricula = %s
     """, (matricula,))
 
-    notas = cursor.fetchall()
+    dados = cursor.fetchall()
 
-    if len(notas) == 0:
-        print("Nenhuma nota encontrada.")
+    if len(dados) == 0:
+        print("Aluno não encontrado.")
+        return
 
-    else:
-        for nota1, nota2 in notas:
+    for materia, nota1, nota2 in dados:
+        media = (nota1 + nota2) / 2
 
-            media = (nota1 + nota2) / 2
+        print(f"\nMatéria: {materia}")
+        print(f"Nota trabalho: {nota1}")
+        print(f"Nota prova: {nota2}")
+        print(f"Média: {media:.1f}")
 
-            print(f"\nNota 1: {nota1}")
-            print(f"Nota 2: {nota2}")
-            print(f"Média: {media:.1f}")
-
-            if media >= 7:
-                print("APROVADO")
-            else:
-                print("REPROVADO")
+        if media >= 7:
+            print("Situação: APROVADO")
+        else:
+            print("Situação: REPROVADO")

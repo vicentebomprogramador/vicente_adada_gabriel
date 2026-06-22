@@ -73,5 +73,4 @@ def atualizar_aluno():
         else:
             print("opção inválida")
 
-        cursor.close()
-        conexao.close()
+        

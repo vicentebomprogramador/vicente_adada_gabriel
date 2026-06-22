@@ -48,7 +48,9 @@ def registrar_notas():
         print("B - Banco de Dados")
         materia_escolhida = input()
         if materia_escolhida == ("L"):
-          materia_escolhida = "Levantamento de requisitos"
+          materia_escolhida = "Levantamento de requisitos"   
+          
+        
           materia_id = 1
           while True:
            
@@ -76,6 +78,7 @@ def registrar_notas():
         elif materia_escolhida == ("D"):
           materia_escolhida = "Desenvolver algoritmos"
           materia_id = 2
+          
           while True:
            try:
             nota1 = float(input("nota trabalho (0-10): "))
@@ -102,6 +105,7 @@ def registrar_notas():
         elif materia_escolhida == ("B"):
           materia_id = 3
           materia_escolhida = "Banco de dados"
+         
           while True:
            try:
             nota1= float(input("nota trabalho (0-10): "))
@@ -112,7 +116,7 @@ def registrar_notas():
            except:
             print("digite número válido")
             continue
-        
+
         
 
           while True:
