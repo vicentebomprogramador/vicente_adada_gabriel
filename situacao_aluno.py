@@ -27,8 +27,8 @@ else:
     for nota1, nota2 in notas:
         media = (nota1 + nota2) / 2
 
-        print(f"\nNota 1: {nota1}")
-        print(f"Nota 2: {nota2}")
+        print(f"\nNota trabalho: {nota1}")
+        print(f"Nota prova: {nota2}")
         print(f"Média: {media:.1f}")
 
         if media >= 7:
