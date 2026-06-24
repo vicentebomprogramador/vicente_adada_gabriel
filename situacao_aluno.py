@@ -24,7 +24,7 @@ def situacao_aluno():
     dados = cursor.fetchall()
 
     if len(dados) == 0:
-        print("Aluno não encontrado.")
+        print("Aluno não encontrado ou sem nota registrada.")
         return
 
     for materia, nota1, nota2 in dados:
@@ -39,3 +39,4 @@ def situacao_aluno():
             print("Situação: APROVADO")
         else:
             print("Situação: REPROVADO")
+    

@@ -43,7 +43,7 @@ def menu():
         print("3 - diretor")
 
         
-        ator = input("quem é você? ").strip()
+        ator = input("o que voce é? ").strip()
 
 
         if ator == "1":
@@ -119,6 +119,7 @@ def menu():
 
             else:
                 print("opção inválida.")
+                continue
 
         else:
             print("ator inválido.")
