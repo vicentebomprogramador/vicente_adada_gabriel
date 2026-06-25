@@ -132,7 +132,16 @@ def registrar_notas():
         else:
           print("matéria inválida")
           continue
-        
+        cursor.execute("""
+        SELECT * FROM notas
+        WHERE matricula = %s AND materia_id = %s
+        """, (matricula, materia_id))
+
+        resultado = cursor.fetchone()
+
+        if resultado:
+            print("Esse aluno já possui notas registradas nessa matéria.")
+            return
         cursor.execute("""
             INSERT INTO notas (matricula,materia_id, nota1, nota2)
             VALUES (%s, %s, %s, %s)
@@ -148,3 +157,4 @@ def registrar_notas():
 
         print("notas registradas com sucesso!")
         break
+    
