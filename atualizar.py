@@ -26,51 +26,78 @@ else:
     exit()
 
 
+
+
 def atualizar_aluno():
 
-    matricula_aluno = int(input("digite a matricula do aluno: "))
-
-    print("1 - atualizar nome")
-    print("2 - atualizar turma")
-
-    escolha = input("escolha: ")
+    while True:
+        try:
+            matricula_aluno = int(input("Digite a matrícula do aluno: "))
+            break
+        except ValueError:
+            print("Digite apenas números na matrícula.")
 
     conexao = criar_conexao()
 
     if conexao:
-
         cursor = conexao.cursor()
+
+        sql_verificar = "SELECT * FROM alunos WHERE matricula = %s"
+        cursor.execute(sql_verificar, (matricula_aluno,))
+
+        resultado = cursor.fetchone()
+
+        if resultado is None:
+            print("/////////////////////////")
+            print("Matrícula não encontrada")
+            print("/////////////////////////")
+            return
+
+        print("1 - atualizar nome")
+        print("2 - atualizar turma")
+
+        escolha = input("Escolha: ")
 
         if escolha == "1":
 
-            novo_nome = input("novo nome: ")
-            novo_sobrenome = input("novo sobrenome: ")
+            novo_nome = input("Novo nome: ")
+            novo_sobrenome = input("Novo sobrenome: ")
 
-            sql = "UPDATE alunos SET nome = %s, sobrenome = %s WHERE matricula = %s"
+            sql = """
+            UPDATE alunos
+            SET nome = %s, sobrenome = %s
+            WHERE matricula = %s
+            """
 
             valores = (novo_nome, novo_sobrenome, matricula_aluno)
 
             cursor.execute(sql, valores)
-
             conexao.commit()
 
-            print("nome e sobrenome atualizados!")
+            print("Nome e sobrenome atualizados!")
 
         elif escolha == "2":
 
-            nova_turma = input("nova turma: ")
+            nova_turma = input("Nova turma: ")
 
-            sql = "UPDATE alunos SET turma = %s WHERE matricula = %s"
+            sql = """
+            UPDATE alunos
+            SET turma = %s
+            WHERE matricula = %s
+            """
 
             valores = (nova_turma, matricula_aluno)
 
             cursor.execute(sql, valores)
-
             conexao.commit()
 
-            print("turma atualizada!")
+            print("Turma atualizada!")
 
         else:
-            print("opção inválida")
+            print("Opção inválida")
 
-        
+        cursor.close()
+        conexao.close()
+
+    else:
+        print("Erro ao conectar ao banco.")
