@@ -23,7 +23,7 @@ if conexao:
 else:
     print("Erro de conexão")
     exit()
-
+ 
 
 
 def cadastrar_aluno():
